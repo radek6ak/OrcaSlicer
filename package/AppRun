@@ -1,0 +1,10 @@
+#!/bin/bash
+DIR=$(readlink -f "$0" | xargs dirname)
+export LD_LIBRARY_PATH="$DIR/bin"
+
+# FIXME: OrcaSlicer segfault workarounds
+# 1) OrcaSlicer will segfault on systems where locale info is not as expected (i.e. Holo-ISO arch-based distro)
+export LC_ALL=C
+export WEBKIT_DISABLE_COMPOSITING_MODE=1
+
+exec "$DIR/bin/orca-slicer" "$@"
